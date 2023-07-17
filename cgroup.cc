@@ -38,7 +38,7 @@
 namespace cgroup {
 
 static bool createCgroup(const std::string& cgroup_path, pid_t pid) {
-	LOG_D("Create %s for pid=%d", QC(cgroup_path), (int)pid);
+	LOG_I("Create %s for pid=%d", QC(cgroup_path), (int)pid);
 	if (mkdir(cgroup_path.c_str(), 0700) == -1 && errno != EEXIST) {
 		PLOG_W("mkdir(%s, 0700) failed", QC(cgroup_path));
 		return false;
@@ -48,7 +48,7 @@ static bool createCgroup(const std::string& cgroup_path, pid_t pid) {
 
 static bool writeToCgroup(
     const std::string& cgroup_path, const std::string& value, const std::string& what) {
-	LOG_D("Setting %s to '%s'", QC(cgroup_path), value.c_str());
+	LOG_I("Setting %s to '%s'", QC(cgroup_path), value.c_str());
 	if (!util::writeBufToFile(
 		cgroup_path.c_str(), value.c_str(), value.length(), O_WRONLY | O_CLOEXEC)) {
 		LOG_W("Could not update %s", what.c_str());

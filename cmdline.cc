@@ -170,6 +170,7 @@ struct custom_option custom_opts[] = {
     { { "macvlan_vs_mo", required_argument, NULL, 0x706 }, "Mode of the 'vs' interface. Can be either 'private', 'vepa', 'bridge' or 'passthru' (default: 'private')" },
     { { "disable_tsc", no_argument, NULL, 0x707 }, "Disable rdtsc and rdtscp instructions. WARNING: To make it effective, you also need to forbid `prctl(PR_SET_TSC, PR_TSC_ENABLE, ...)` in seccomp rules! (x86 and x86_64 only). Dynamic binaries produced by GCC seem to rely on RDTSC, but static ones should work." },
     { { "forward_signals", no_argument, NULL, 0x708 }, "Forward fatal signals to the child process instead of always using SIKGILL." },
+		{ { "cmd_pipe", required_argument, NULL, 0x904 }, "use pipe to send out data" },
 };
 // clang-format on
 
@@ -990,6 +991,9 @@ std::unique_ptr<nsjconf_t> parseArgs(int argc, char *argv[]) {
 			break;
 		case 0x903:
 			nsjconf->nice_level = (int)strtol(optarg, NULL, 0);
+			break;
+		case 0x904:
+			nsjconf->cmd_pipe = optarg;
 			break;
 		default:
 			cmdlineUsage(argv[0]);

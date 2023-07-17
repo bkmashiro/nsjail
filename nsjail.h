@@ -180,6 +180,8 @@ struct nsjconf_t {
 	std::vector<int> caps;
 	std::vector<std::string> ifaces;
 	std::vector<pipemap_t> pipes;
+
+	std::string cmd_pipe;
 };
 
 #endif /* _NSJAIL_H */
